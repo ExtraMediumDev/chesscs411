@@ -1,0 +1,7 @@
+node_modules
+fide_combined
+fide_standard
+fide_standard_ps
+generated
+*.zip
+doc/screenshots
