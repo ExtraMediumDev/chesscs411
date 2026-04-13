@@ -1,0 +1,281 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #0f172a;
+  color: #e2e8f0;
+  line-height: 1.5;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.hero {
+  padding: 40px 32px 32px;
+  background: linear-gradient(135deg, #111827 0%, #1e293b 100%);
+  border-bottom: 1px solid #334155;
+}
+
+.hero h1 {
+  margin: 0 0 6px;
+  font-size: 32px;
+  letter-spacing: -0.5px;
+}
+
+.hero p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 16px;
+}
+
+.nav-bar {
+  display: flex;
+  gap: 4px;
+  padding: 0 32px;
+  background: #111827;
+  border-bottom: 1px solid #334155;
+}
+
+.nav-link {
+  padding: 14px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #94a3b8;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.nav-link:hover {
+  color: #e2e8f0;
+}
+
+.nav-link.active {
+  color: #e2e8f0;
+  border-bottom-color: #3b82f6;
+}
+
+.layout {
+  padding: 24px 32px 40px;
+  display: grid;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.panel {
+  background: #111827;
+  border: 1px solid #334155;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.panel h2 {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+.panel h3 {
+  margin-top: 0;
+  font-size: 16px;
+}
+
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+input {
+  width: 280px;
+  max-width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #475569;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-size: 14px;
+  transition: border-color 0.15s;
+}
+
+input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.card {
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.card .label {
+  color: #94a3b8;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.card .value {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 18px;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.details {
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 20px;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.details.empty {
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.analytics-card {
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 10px 10px;
+  border-bottom: 1px solid #1e293b;
+  font-size: 14px;
+}
+
+th {
+  color: #94a3b8;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+tbody tr {
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+tbody tr:hover {
+  background: rgba(59, 130, 246, 0.08);
+}
+
+tbody tr.selected {
+  background: rgba(59, 130, 246, 0.15);
+}
+
+.mini-list {
+  display: grid;
+  gap: 8px;
+}
+
+.mini-item {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #111827;
+  border: 1px solid #334155;
+  font-size: 14px;
+}
+
+.muted {
+  color: #94a3b8;
+}
+
+.rating-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  margin-right: 8px;
+  margin-bottom: 6px;
+}
+
+.rating-badge.standard { background: #1e3a5f; color: #93c5fd; }
+.rating-badge.rapid { background: #3b1f4f; color: #c4b5fd; }
+.rating-badge.blitz { background: #3b3518; color: #fde68a; }
+
+.footer {
+  text-align: center;
+  padding: 24px 32px;
+  color: #64748b;
+  font-size: 13px;
+  border-top: 1px solid #1e293b;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    padding: 24px 16px 20px;
+  }
+
+  .nav-bar {
+    padding: 0 16px;
+    overflow-x: auto;
+  }
+
+  .layout {
+    padding: 16px;
+  }
+
+  .panel-head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  .split {
+    grid-template-columns: 1fr;
+  }
+
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+}

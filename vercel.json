@@ -1,0 +1,5 @@
+{
+  "buildCommand": "npm install",
+  "outputDirectory": "public",
+  "framework": null
+}

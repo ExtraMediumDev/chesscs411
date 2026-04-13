@@ -1,0 +1,13 @@
+node_modules/
+.env
+*.log
+
+# Data files (large, not needed in repo)
+fide_combined/
+fide_standard/
+fide_standard_ps/
+generated/
+*.zip
+
+# Generated screenshots
+doc/screenshots/

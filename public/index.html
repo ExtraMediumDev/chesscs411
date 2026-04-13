@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChessTimeline - Explore Chess Player Careers</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div>
+        <h1>ChessTimeline</h1>
+        <p>Browse player ratings, tournament history, and chess statistics from around the world.</p>
+      </div>
+    </header>
+
+    <nav class="nav-bar">
+      <a href="#overview" class="nav-link active" data-section="overview">Overview</a>
+      <a href="#players" class="nav-link" data-section="players">Players</a>
+      <a href="#tournaments" class="nav-link" data-section="tournaments">Tournaments</a>
+      <a href="#analytics" class="nav-link" data-section="analytics">Analytics</a>
+    </nav>
+
+    <main class="layout">
+      <section id="overview" class="panel section-content">
+        <h2>At a Glance</h2>
+        <div id="summaryCards" class="cards"></div>
+      </section>
+
+      <section id="players" class="panel section-content">
+        <div class="panel-head">
+          <h2>Players</h2>
+          <input id="playerSearch" type="text" placeholder="Search by name..." />
+        </div>
+        <div class="split">
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Country</th>
+                  <th>Standard Rating</th>
+                </tr>
+              </thead>
+              <tbody id="playersTable"></tbody>
+            </table>
+          </div>
+          <div id="playerDetails" class="details empty">Select a player to view their profile.</div>
+        </div>
+      </section>
+
+      <section id="tournaments" class="panel section-content">
+        <h2>Recent Tournaments</h2>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Tournament</th>
+                <th>Location</th>
+                <th>Date</th>
+                <th>Participants</th>
+              </tr>
+            </thead>
+            <tbody id="tournamentsTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="analytics" class="panel section-content">
+        <h2>Analytics</h2>
+        <div class="analytics-grid">
+          <div class="analytics-card">
+            <h3>Win Rates by Country</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Country</th>
+                  <th>Participations</th>
+                  <th>Win Rate</th>
+                </tr>
+              </thead>
+              <tbody id="winRatesTable"></tbody>
+            </table>
+          </div>
+          <div class="analytics-card">
+            <h3>Top Winners</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Player</th>
+                  <th>Tournaments</th>
+                  <th>Total Wins</th>
+                </tr>
+              </thead>
+              <tbody id="topWinnersTable"></tbody>
+            </table>
+          </div>
+          <div class="analytics-card">
+            <h3>Biggest Rating Growth (2020-2025)</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Player</th>
+                  <th>Rating Growth</th>
+                </tr>
+              </thead>
+              <tbody id="growthTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>ChessTimeline &middot; Data sourced from FIDE rating lists &middot; CS 411 Spring 2026</p>
+    </footer>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
