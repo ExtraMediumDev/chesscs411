@@ -23,13 +23,23 @@ const TOURNAMENT_SERIES = [
   "Grandmasters Cup",
   "International Masters Open",
   "Continental Classic",
-  "World Rapid Challenge",
+  "Rapid Challenge",
   "Spring Invitational",
   "Autumn Championship",
-  "Open Elite Series",
+  "Elite Open",
   "Chess Heritage Trophy",
-  "Global Masters",
-  "City Super Open",
+  "Grand Prix",
+  "Super Tournament",
+  "Candidates Open",
+  "Olympiad Qualifier",
+  "Blitz Championship",
+  "Classical Round-Robin",
+  "Memorial Open",
+  "Rising Stars Invitational",
+  "Champions League",
+  "National Cup",
+  "Masters Rapid",
+  "Winter Classic",
 ];
 
 const LOCATIONS = [
@@ -220,10 +230,13 @@ function generateHybridTournamentData(players) {
     const year = 2023 + (i % 4);
     const month = i % 12;
     const day = 1 + (i % 28);
+    const location = LOCATIONS[i % LOCATIONS.length];
+    const city = location.split(",")[0].trim();
+    const series = TOURNAMENT_SERIES[i % TOURNAMENT_SERIES.length];
     const tournament = {
       Tournament_ID: i + 1,
-      Tournament_Name: `Student Sim Tournament ${i + 1}`,
-      Location: LOCATIONS[i % LOCATIONS.length],
+      Tournament_Name: `${city} ${series} ${year}`,
+      Location: location,
       Start_Date: `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`,
     };
     tournaments.push(tournament);
@@ -250,13 +263,29 @@ function generateHybridTournamentData(players) {
   return { tournaments, results };
 }
 
+const USERNAME_PREFIXES = [
+  "chess", "knight", "bishop", "rook", "pawn", "queen", "king",
+  "gambit", "elo", "blitz", "rapid", "endgame", "castled", "checkmate",
+  "grandmaster", "opening", "tactics", "board", "fianchetto", "zugzwang",
+  "skewer", "fork", "pin", "tempo", "sicilian",
+];
+
+const USERNAME_SUFFIXES = [
+  "pro", "fan", "master", "player", "wizard", "guru", "ace",
+  "hero", "legend", "star", "shark", "hawk", "wolf", "fox", "lion",
+];
+
 function generateUsers() {
   const users = [];
+  const rng = mulberry32(42);
   for (let i = 1; i <= USER_COUNT; i += 1) {
+    const prefix = USERNAME_PREFIXES[Math.floor(rng() * USERNAME_PREFIXES.length)];
+    const suffix = USERNAME_SUFFIXES[Math.floor(rng() * USERNAME_SUFFIXES.length)];
+    const num = Math.floor(rng() * 900) + 100;
     users.push({
       user_Id: i,
-      Username: `user_${String(i).padStart(3, "0")}`,
-      Password: `seeded_password_${String(i).padStart(3, "0")}`,
+      Username: `${prefix}_${suffix}${num}`,
+      Password: `hashed_${Math.floor(rng() * 1e12).toString(36)}`,
     });
   }
   return users;
