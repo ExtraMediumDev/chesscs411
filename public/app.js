@@ -162,4 +162,103 @@ async function init() {
   });
 }
 
+function showMsg(elementId, text, isError) {
+  const el = document.getElementById(elementId);
+  el.textContent = text;
+  el.className = `form-msg ${isError ? "error" : "success"}`;
+  setTimeout(() => { el.textContent = ""; el.className = "form-msg"; }, 4000);
+}
+
+function setupCrud() {
+  document.getElementById("addPlayerForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const data = {
+      Name: form.Name.value.trim(),
+      Country: form.Country.value.trim() || null,
+      Gender: form.Gender.value || null,
+      Birthday: form.Birthday.value || null,
+    };
+
+    try {
+      const res = await fetch("/api/players/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error);
+      showMsg("addPlayerMsg", `Player added (ID: ${json.player_ID})`);
+      form.reset();
+      loadPlayers();
+    } catch (err) {
+      showMsg("addPlayerMsg", err.message, true);
+    }
+  });
+
+  document.getElementById("loadPlayerBtn").addEventListener("click", async () => {
+    const form = document.getElementById("editPlayerForm");
+    const id = form.player_ID.value;
+    if (!id) return;
+
+    try {
+      const player = await fetchJson(`/api/players/${id}`);
+      form.Name.value = player.Name || "";
+      form.Country.value = player.Country || "";
+      form.Gender.value = player.Gender || "";
+      form.Birthday.value = player.Birthday ? String(player.Birthday).slice(0, 10) : "";
+      showMsg("editPlayerMsg", `Loaded: ${player.Name}`);
+    } catch (err) {
+      showMsg("editPlayerMsg", "Player not found", true);
+    }
+  });
+
+  document.getElementById("editPlayerForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const id = form.player_ID.value;
+    const data = {
+      Name: form.Name.value.trim(),
+      Country: form.Country.value.trim() || null,
+      Gender: form.Gender.value || null,
+      Birthday: form.Birthday.value || null,
+    };
+
+    try {
+      const res = await fetch(`/api/players/${id}/update`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error);
+      showMsg("editPlayerMsg", "Player updated successfully");
+      loadPlayers();
+    } catch (err) {
+      showMsg("editPlayerMsg", err.message, true);
+    }
+  });
+
+  document.getElementById("deletePlayerForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const id = form.player_ID.value;
+
+    try {
+      const res = await fetch(`/api/players/${id}/delete`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error);
+      showMsg("deletePlayerMsg", "Player deleted");
+      form.reset();
+      loadPlayers();
+    } catch (err) {
+      showMsg("deletePlayerMsg", err.message, true);
+    }
+  });
+}
+
 init();
+setupCrud();

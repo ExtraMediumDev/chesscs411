@@ -19,6 +19,7 @@
       <a href="#players" class="nav-link" data-section="players">Players</a>
       <a href="#tournaments" class="nav-link" data-section="tournaments">Tournaments</a>
       <a href="#analytics" class="nav-link" data-section="analytics">Analytics</a>
+      <a href="#manage" class="nav-link" data-section="manage">Manage</a>
     </nav>
 
     <main class="layout">
@@ -106,6 +107,56 @@
               </thead>
               <tbody id="growthTable"></tbody>
             </table>
+          </div>
+        </div>
+      </section>
+    </main>
+
+      <section id="manage" class="panel section-content">
+        <h2>Manage Players</h2>
+        <div class="manage-grid">
+          <div class="manage-card">
+            <h3>Add Player</h3>
+            <form id="addPlayerForm" class="crud-form">
+              <input type="text" name="Name" placeholder="Full name" required />
+              <input type="text" name="Country" placeholder="Country code (e.g. USA)" maxlength="3" />
+              <select name="Gender">
+                <option value="">Gender</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+              </select>
+              <input type="date" name="Birthday" />
+              <button type="submit" class="btn btn-create">Add Player</button>
+            </form>
+            <div id="addPlayerMsg" class="form-msg"></div>
+          </div>
+
+          <div class="manage-card">
+            <h3>Edit Player</h3>
+            <form id="editPlayerForm" class="crud-form">
+              <input type="number" name="player_ID" placeholder="Player ID" required />
+              <button type="button" id="loadPlayerBtn" class="btn btn-secondary">Load</button>
+              <input type="text" name="Name" placeholder="Full name" required />
+              <input type="text" name="Country" placeholder="Country code" maxlength="3" />
+              <select name="Gender">
+                <option value="">Gender</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+              </select>
+              <input type="date" name="Birthday" />
+              <button type="submit" class="btn btn-update">Save Changes</button>
+            </form>
+            <div id="editPlayerMsg" class="form-msg"></div>
+          </div>
+
+          <div class="manage-card">
+            <h3>Delete Player</h3>
+            <form id="deletePlayerForm" class="crud-form">
+              <input type="number" name="player_ID" placeholder="Player ID" required />
+              <p class="muted" style="font-size:13px">This will also remove the player's ratings and tournament results.</p>
+              <button type="submit" class="btn btn-delete">Delete Player</button>
+            </form>
+            <div id="deletePlayerMsg" class="form-msg"></div>
           </div>
         </div>
       </section>

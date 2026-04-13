@@ -248,6 +248,87 @@ tbody tr.selected {
   border-top: 1px solid #1e293b;
 }
 
+.manage-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.manage-card {
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.crud-form {
+  display: grid;
+  gap: 10px;
+}
+
+.crud-form input,
+.crud-form select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #475569;
+  background: #111827;
+  color: #e2e8f0;
+  font-size: 14px;
+}
+
+.crud-form select {
+  appearance: auto;
+}
+
+.btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+.btn-create {
+  background: #16a34a;
+  color: #fff;
+}
+
+.btn-update {
+  background: #2563eb;
+  color: #fff;
+}
+
+.btn-delete {
+  background: #dc2626;
+  color: #fff;
+}
+
+.btn-secondary {
+  background: #475569;
+  color: #e2e8f0;
+}
+
+.form-msg {
+  margin-top: 8px;
+  font-size: 14px;
+  min-height: 20px;
+}
+
+.form-msg.success {
+  color: #4ade80;
+}
+
+.form-msg.error {
+  color: #f87171;
+}
+
 @media (max-width: 900px) {
   .hero {
     padding: 24px 16px 20px;
