@@ -181,7 +181,7 @@ function setupCrud() {
     };
 
     try {
-      const res = await fetch("/api/players/create", {
+      const res = await fetch("/api/players", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -225,7 +225,7 @@ function setupCrud() {
     };
 
     try {
-      const res = await fetch(`/api/players/${id}/update`, {
+      const res = await fetch(`/api/players/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -245,7 +245,7 @@ function setupCrud() {
     const id = form.player_ID.value;
 
     try {
-      const res = await fetch(`/api/players/${id}/delete`, {
+      const res = await fetch(`/api/players/${id}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       });

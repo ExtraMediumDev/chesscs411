@@ -244,6 +244,7 @@ async function getRatingGrowth() {
 async function handleApi(req, res, requestUrl) {
   const { pathname, searchParams } = requestUrl;
 
+  //just check every possible path right here
   try {
     if (pathname === "/api/health") {
       const health = await getHealth();
