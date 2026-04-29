@@ -13,3 +13,6 @@ generated/
 doc/screenshots/
 
 .vercel
+.env*.local
+.cursor/
+

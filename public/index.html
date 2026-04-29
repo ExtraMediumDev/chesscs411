@@ -108,9 +108,16 @@
               <tbody id="growthTable"></tbody>
             </table>
           </div>
+          <div class="analytics-card">
+            <h3>Country Report</h3>
+            <form id="countryReportForm" class="crud-form">
+              <input id="countryReportInput" type="text" placeholder="Country code (e.g. USA)" maxlength="3" required />
+              <button type="submit" class="btn btn-update">Run Report</button>
+            </form>
+            <div id="countryReportOut" class="form-msg"></div>
+          </div>
         </div>
       </section>
-    </main>
 
       <section id="manage" class="panel section-content">
         <h2>Manage Players</h2>
@@ -157,6 +164,19 @@
               <button type="submit" class="btn btn-delete">Delete Player</button>
             </form>
             <div id="deletePlayerMsg" class="form-msg"></div>
+          </div>
+
+          <div class="manage-card">
+            <h3>Record Tournament Result</h3>
+            <form id="recordResultForm" class="crud-form">
+              <input type="number" name="player_ID" placeholder="Player ID" required />
+              <input type="number" name="Tournament_ID" placeholder="Tournament ID" required />
+              <input type="number" name="GamesPlayed" placeholder="Games played" required />
+              <input type="number" name="GamesWon" placeholder="Games won" required />
+              <input type="number" name="RatingChange" placeholder="Rating change (+/-)" required />
+              <button type="submit" class="btn btn-create">Record Result</button>
+            </form>
+            <div id="recordResultMsg" class="form-msg"></div>
           </div>
         </div>
       </section>

@@ -1,19 +1,10 @@
 {
   "name": "411",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "api/index.js",
   "scripts": {
-    "start": "node server.js",
-    "seed:chess": "node scripts/import_chess_data.js",
-    "seed:chess:load": "node scripts/import_chess_data.js --load",
-    "analyze:stage3": "node scripts/analyze_stage3.js",
-    "screenshots:stage3": "node scripts/generate_stage3_screenshots.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"no tests\" && exit 0"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
     "mysql2": "^3.20.0"
   }

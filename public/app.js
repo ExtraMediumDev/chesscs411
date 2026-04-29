@@ -258,6 +258,66 @@ function setupCrud() {
       showMsg("deletePlayerMsg", err.message, true);
     }
   });
+
+  document.getElementById("countryReportForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const c = document.getElementById("countryReportInput").value.trim().toUpperCase();
+    const out = document.getElementById("countryReportOut");
+    out.className = "form-msg";
+    out.innerHTML = "Loading...";
+
+    try {
+      const data = await fetchJson(`/api/reports/country-report?c=${encodeURIComponent(c)}`);
+      const summary = data.summary[0];
+      const top = data.top || [];
+
+      let html = "";
+      if (!summary || summary.note === "no players found") {
+        html = `<p class="muted">No players found for ${c}.</p>`;
+      } else {
+        const wr = summary.win_rate ? Number(summary.win_rate).toFixed(3) : "n/a";
+        html = `
+          <p><strong>${summary.Country}</strong> &middot; ${summary.total_participations} entries &middot; win rate ${wr}</p>
+          <p class="muted" style="margin-top:8px">Top growth (2020-2025):</p>
+          <div class="mini-list">
+            ${top.length
+              ? top.map(r => `<div class="mini-item"><strong>${r.Name}</strong> &mdash; +${r.rating_growth}</div>`).join("")
+              : '<p class="muted">No rating growth data.</p>'}
+          </div>
+        `;
+      }
+      out.innerHTML = html;
+    } catch (err) {
+      out.className = "form-msg error";
+      out.textContent = err.message;
+    }
+  });
+
+  document.getElementById("recordResultForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const data = {
+      player_ID: Number(form.player_ID.value),
+      Tournament_ID: Number(form.Tournament_ID.value),
+      GamesPlayed: Number(form.GamesPlayed.value),
+      GamesWon: Number(form.GamesWon.value),
+      RatingChange: Number(form.RatingChange.value),
+    };
+
+    try {
+      const res = await fetch("/api/tx/record-result", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error);
+      showMsg("recordResultMsg", "Result recorded (trigger caps GamesWon if > GamesPlayed)");
+      form.reset();
+    } catch (err) {
+      showMsg("recordResultMsg", err.message, true);
+    }
+  });
 }
 
 init();

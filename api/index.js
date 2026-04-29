@@ -78,13 +78,14 @@ module.exports = async (req, res) => {
 
       const search = params.get("search") || "";
       const rows = await sql(
-        `SELECT p.player_ID, p.Name, p.Country, p.Gender,
-           MAX(CASE WHEN r.Rating_Type = 'standard' AND r.RatingDate = '2026-04-01' THEN r.Rating END) AS standard_rating
+        `SELECT p.player_ID, p.Name, p.Country, p.Gender, rs.Rating AS standard_rating
          FROM Players p
-         LEFT JOIN Ratings r ON p.player_ID = r.player_ID
+         LEFT JOIN Ratings rs
+           ON rs.player_ID = p.player_ID
+           AND rs.Rating_Type = 'standard'
+           AND rs.RatingDate = '2026-04-01'
          WHERE p.Name LIKE ?
-         GROUP BY p.player_ID, p.Name, p.Country, p.Gender
-         ORDER BY standard_rating DESC, p.Name ASC
+         ORDER BY rs.Rating DESC, p.Name ASC
          LIMIT 25`,
         [`%${search}%`]
       );
@@ -136,13 +137,23 @@ module.exports = async (req, res) => {
 
       const rows = await sql(
         `SELECT p.player_ID, p.Name, p.Country, p.Gender, p.Birthday,
-           MAX(CASE WHEN r.Rating_Type = 'standard' AND r.RatingDate = '2026-04-01' THEN r.Rating END) AS standard_rating,
-           MAX(CASE WHEN r.Rating_Type = 'rapid' AND r.RatingDate = '2026-04-01' THEN r.Rating END) AS rapid_rating,
-           MAX(CASE WHEN r.Rating_Type = 'blitz' AND r.RatingDate = '2026-04-01' THEN r.Rating END) AS blitz_rating
+           rs.Rating AS standard_rating,
+           rr.Rating AS rapid_rating,
+           rb.Rating AS blitz_rating
          FROM Players p
-         LEFT JOIN Ratings r ON p.player_ID = r.player_ID
-         WHERE p.player_ID = ?
-         GROUP BY p.player_ID, p.Name, p.Country, p.Gender, p.Birthday`,
+         LEFT JOIN Ratings rs
+           ON rs.player_ID = p.player_ID
+           AND rs.Rating_Type = 'standard'
+           AND rs.RatingDate = '2026-04-01'
+         LEFT JOIN Ratings rr
+           ON rr.player_ID = p.player_ID
+           AND rr.Rating_Type = 'rapid'
+           AND rr.RatingDate = '2026-04-01'
+         LEFT JOIN Ratings rb
+           ON rb.player_ID = p.player_ID
+           AND rb.Rating_Type = 'blitz'
+           AND rb.RatingDate = '2026-04-01'
+         WHERE p.player_ID = ?`,
         [m.id]
       );
       if (!rows[0]) return res.status(404).json({ error: "Player not found" });
@@ -195,6 +206,21 @@ module.exports = async (req, res) => {
          LIMIT 15`
       );
       return res.json(rows);
+    }
+
+    if (path === "/api/reports/country-report") {
+      const c = params.get("c") || "";
+      const sets = await sql("CALL sp_country_report(?)", [c]);
+      return res.json({ summary: sets[0] || [], top: sets[1] || [] });
+    }
+
+    if (path === "/api/tx/record-result" && method === "POST") {
+      const b = await readBody(req);
+      await sql(
+        "CALL sp_record_result(?, ?, ?, ?, ?)",
+        [b.player_ID, b.Tournament_ID, b.GamesPlayed, b.GamesWon, b.RatingChange]
+      );
+      return res.json({ success: true });
     }
 
     res.status(404).json({ error: "Not found" });
